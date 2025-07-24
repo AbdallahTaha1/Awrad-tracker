@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<div class="container py-5" dir="rtl">
+  <h2 class="text-center mb-5">لوحة تحكم الطالب</h2>
+
+  <div class="row justify-content-center g-4">
+    <!-- بطاقة الصلوات -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow rounded text-center p-4 border-0">
+        <h4 class="mb-3">تسجيل الصلوات</h4>
+        <p class="text-muted mb-4">
+          قم بتسجيل نوع الصلاة وذكر الأذكار لكل صلاة يوميًا.
+        </p>
+        <button class="btn btn-outline-primary w-100" (click)="goTo('salah')">
+          الذهاب إلى الصلوات
+        </button>
+      </div>
+    </div>
+
+    <!-- بطاقة الأوراد -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow rounded text-center p-4 border-0">
+        <h4 class="mb-3">الأوراد اليومية</h4>
+        <p class="text-muted mb-4">أكمل وردك اليومي وسجل إنجازه بسهولة.</p>
+        <button class="btn btn-outline-success w-100" (click)="goTo('werd')">
+          الذهاب إلى الأوراد
+        </button>
+      </div>
+    </div>
+
+    <!-- بطاقة التقرير الأسبوعي -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow rounded text-center p-4 border-0">
+        <h4 class="mb-3">التقرير الأسبوعي</h4>
+        <p class="text-muted mb-4">
+          استعرض أداءك الأسبوعي واحرص على التحسن المستمر.
+        </p>
+        <button class="btn btn-outline-dark w-100" (click)="goTo('report')">
+          عرض التقرير
+        </button>
+      </div>
+    </div>
+
+    <!-- بطاقة ورد الاستماع -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow rounded text-center p-4 border-0">
+        <h4 class="mb-3">ورد الاستماع</h4>
+        <p class="text-muted mb-4">
+          استمع إلى المقرئ وسجل إتمامك للورد المطلوب.
+        </p>
+        <button class="btn btn-outline-info w-100" (click)="goTo('listening')">
+          الذهاب إلى ورد الاستماع
+        </button>
+      </div>
+    </div>
+
+    <!-- بطاقة حفظ القرآن -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow rounded text-center p-4 border-0">
+        <h4 class="mb-3">حفظ القرآن</h4>
+        <p class="text-muted mb-4">تابع تقدمك في حفظ القرآن الكريم يوميًا.</p>
+        <button
+          class="btn btn-outline-warning w-100"
+          (click)="goTo('quranTracking')"
+        >
+          إضافة ورد الحفظ
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

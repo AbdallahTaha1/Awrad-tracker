@@ -1,0 +1,46 @@
+<app-admin-header></app-admin-header>
+<div class="container mt-4">
+  <h3>{{ isEdit ? "تعديل ورد" : "إضافة ورد" }}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-3">
+    <div class="mb-3">
+      <label class="form-label">الاسم</label>
+      <input type="text" class="form-control" formControlName="title" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">النوع</label>
+      <select class="form-select" formControlName="type">
+        <option [value]="TaskType.Daily">يومي</option>
+        <option [value]="TaskType.Weekly">أسبوعي</option>
+        <option [value]="TaskType.Monthly">شهري</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">أقصى درجة</label>
+      <input type="number" class="form-control" formControlName="score" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">الترتيب</label>
+      <input type="number" class="form-control" formControlName="Order" />
+    </div>
+
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        formControlName="isActive"
+      />
+      <label class="form-check-label">نشط</label>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+      {{ isEdit ? "تحديث" : "حفظ" }}
+    </button>
+  </form>
+</div>

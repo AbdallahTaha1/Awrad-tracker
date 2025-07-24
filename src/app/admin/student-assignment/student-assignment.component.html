@@ -1,0 +1,51 @@
+<app-admin-header></app-admin-header>
+<div class="container mt-4">
+  <h3 class="mb-3">إدارة تعيين الطلاب إلى المجموعات</h3>
+
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>اسم الطالب</th>
+        <th>المجموعة الحالية</th>
+        <th>تغيير المجموعة</th>
+        <th>إجراء</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.fullName }}</td>
+        <td>{{ student.groupName || "غير معين" }}</td>
+        <td>
+          <select
+            class="form-select"
+            [(ngModel)]="student.selectedGroupId"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option [value]="null">اختر مجموعة</option>
+            <option *ngFor="let group of groups" [value]="group.id">
+              {{ group.name }}
+            </option>
+          </select>
+        </td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary"
+            (click)="changeGroup(student)"
+            [disabled]="student.selectedGroupId === student.groupId"
+          >
+            تحديث
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div
+    *ngIf="message"
+    class="alert mt-3"
+    [class.alert-success]="message.includes('تم')"
+    [class.alert-danger]="message.includes('خطأ')"
+  >
+    {{ message }}
+  </div>
+</div>

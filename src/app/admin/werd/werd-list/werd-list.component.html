@@ -1,0 +1,52 @@
+<app-admin-header></app-admin-header>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>قائمة الأوراد</h3>
+    <a class="btn btn-success" [routerLink]="['/admin/werd/new']"
+      >➕ إضافة ورد</a
+    >
+  </div>
+
+  <table class="table table-bordered text-center" *ngIf="werds.length > 0">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>العنوان</th>
+        <th>النوع</th>
+        <th>الدرجة</th>
+        <th>الترتيب</th>
+        <th>نشط</th>
+        <th>الخيارات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let werd of werds; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ werd.title }}</td>
+        <td [ngSwitch]="werd.type">
+          <span *ngSwitchCase="0">يومي</span>
+          <span *ngSwitchCase="1">أسبوعي</span>
+          <span *ngSwitchCase="2">شهري</span>
+        </td>
+        <td>{{ werd.maxScore }}</td>
+        <td>{{ werd.order }}</td>
+        <td>{{ werd.isActive ? "نعم" : "لا" }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary me-1"
+            (click)="editWerd(werd.id)"
+          >
+            تعديل
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="deleteWerd(werd.id)">
+            حذف
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="werds.length === 0" class="alert alert-info">
+    لا توجد أوراد بعد.
+  </div>
+</div>

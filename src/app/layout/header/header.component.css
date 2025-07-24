@@ -1,0 +1,13 @@
+.custom-navbar {
+  background: linear-gradient(to right, #007bff, #0056b3); /* تدرج جميل */
+}
+
+.nav-item-link {
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.nav-item-link:hover {
+  color: #ffdd57; /* لون ذهبي عند التحويم */
+  text-decoration: underline;
+}

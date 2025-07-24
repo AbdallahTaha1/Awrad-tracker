@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <h2 class="mb-4">إضافة تتبع قرآن</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">التاريخ</label>
+      <input type="date" formControlName="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>من السورة (الحفظ)</label>
+      <input class="form-control" formControlName="memorizationStartSurah" />
+    </div>
+
+    <div class="mb-3">
+      <label>إلى السورة (الحفظ)</label>
+      <input class="form-control" formControlName="memorizationEndSurah" />
+    </div>
+
+    <div class="mb-3">
+      <label>من السورة (المراجعة)</label>
+      <input class="form-control" formControlName="revisionStartSurah" />
+    </div>
+
+    <div class="mb-3">
+      <label>إلى السورة (المراجعة)</label>
+      <input class="form-control" formControlName="revisionEndSurah" />
+    </div>
+
+    <div class="mb-3">
+      <label>الدرجة</label>
+      <input type="number" class="form-control" formControlName="score" />
+    </div>
+
+    <div class="mb-3">
+      <label>ملاحظات</label>
+      <textarea class="form-control" formControlName="notes"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      حفظ
+    </button>
+
+    <p class="mt-3 text-success">{{ message }}</p>
+  </form>
+</div>

@@ -1,0 +1,117 @@
+<app-header></app-header>
+
+<div class="container mt-4" dir="rtl">
+  <h2 class="mb-4 text-center">تسجيل الصلوات</h2>
+
+  <!-- التبويبات -->
+  <ul class="nav nav-tabs justify-content-center mb-4">
+    <li class="nav-item" *ngFor="let date of [todayStr, yesterdayStr]">
+      <a
+        class="nav-link"
+        [class.active]="selectedTab === date"
+        (click)="selectedTab = date"
+        href="javascript:void(0)"
+      >
+        {{ getTabLabel(date) }}
+      </a>
+    </li>
+  </ul>
+
+  <!-- عرض البيانات داخل ng-container لتجنب undefined -->
+  <ng-container
+    *ngIf="groupedSubmissions && groupedSubmissions[selectedTab] as submissions"
+  >
+    <div *ngIf="submissions.length > 0; else noData">
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
+          <tr>
+            <th>الصلاة</th>
+            <th>نوع الصلاة</th>
+            <th>الأذكار</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sub of submissions">
+            <td>{{ sub.salahName }}</td>
+
+            <!-- نوع الصلاة -->
+            <td>
+              <ng-container *ngIf="sub.salahType === null; else salahBadge">
+                <button
+                  class="btn btn-sm btn-outline-success me-1"
+                  (click)="setSalahType(sub, 1)"
+                >
+                  تكبيرة الإحرام
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-warning me-1"
+                  (click)="setSalahType(sub, 2)"
+                >
+                  جماعة
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="setSalahType(sub, 3)"
+                >
+                  منفرد
+                </button>
+              </ng-container>
+              <ng-template #salahBadge>
+                <span
+                  class="px-3 py-1 rounded-pill shadow-sm fw-semibold text-white"
+                  [ngClass]="{
+                    'bg-success text-white': sub.salahType === 1,
+                    'bg-warning text-white': sub.salahType === 2,
+                    'bg-danger text-white': sub.salahType === 3
+                  }"
+                >
+                  {{
+                    sub.salahType === 1
+                      ? "تكبيرة الإحرام"
+                      : sub.salahType === 2
+                      ? "جماعة"
+                      : "منفرد"
+                  }}
+                </span>
+              </ng-template>
+            </td>
+
+            <!-- الأذكار -->
+            <td>
+              <ng-container *ngIf="sub.azkar === null; else azkarBadge">
+                <button
+                  class="btn btn-sm btn-outline-primary me-2"
+                  (click)="setAzkar(sub, true)"
+                >
+                  تمت
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="setAzkar(sub, false)"
+                >
+                  لم تتم
+                </button>
+              </ng-container>
+              <ng-template #azkarBadge>
+                <span
+                  class="px-3 py-1 rounded-pill shadow-sm fw-semibold"
+                  [ngClass]="{
+                    'bg-primary text-white': sub.azkar === true,
+                    'bg-secondary text-white': sub.azkar === false
+                  }"
+                >
+                  {{ sub.azkar ? "تمت" : "لم تتم" }}
+                </span>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <!-- لا توجد بيانات -->
+  <ng-template #noData>
+    <div class="text-center text-muted">لا توجد سجلات لليوم المحدد.</div>
+  </ng-template>
+</div>

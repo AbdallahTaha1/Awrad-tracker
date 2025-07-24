@@ -1,0 +1,50 @@
+<app-admin-header></app-admin-header>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>قائمة المجموعات</h3>
+    <a routerLink="/admin/groups/new" class="btn btn-success"
+      >➕ إضافة مجموعة</a
+    >
+  </div>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">جاري التحميل...</span>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="groups.length > 0" class="table table-striped text-center">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>اسم المجموعة</th>
+        <th>الخيارات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let group of groups; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ group.name }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary me-1"
+            (click)="editGroup(group.id)"
+          >
+            تعديل
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="deleteGroup(group.id)">
+            حذف
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && groups.length === 0" class="alert alert-info">
+    لا توجد مجموعات بعد.
+  </div>
+</div>

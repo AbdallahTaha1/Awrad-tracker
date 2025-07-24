@@ -1,0 +1,96 @@
+<app-header></app-header>
+<div class="container mt-4 report-box bg-white p-4 shadow rounded" dir="rtl">
+  <h4 class="text-center fw-bold border-bottom pb-2 mb-4">
+    الاستماع خلال الأسبوع
+  </h4>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">سماع الأسبوع</h2>
+    <button class="btn btn-primary" [routerLink]="['student/listening/add']">
+      + إضافة سماع جديد
+    </button>
+  </div>
+
+  <ng-container *ngIf="loading; else loaded">
+    <p class="text-center text-muted">جارٍ التحميل...</p>
+  </ng-container>
+
+  <ng-template #loaded>
+    <div *ngIf="werds.length > 0; else noData">
+      <div *ngFor="let werd of werds" class="border rounded mb-3 p-3">
+        <ng-container *ngIf="editingWerdId === werd.id; else displayMode">
+          <form [formGroup]="editForm" (ngSubmit)="saveEdit(werd.id)">
+            <div class="row g-2">
+              <div class="col-md-6">
+                <label class="form-label">اسم المحاضرة</label>
+                <input class="form-control" formControlName="lectureName" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">اسم الشيخ</label>
+                <input class="form-control" formControlName="teacherName" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">مدة المحاضرة</label>
+                <input class="form-control" formControlName="lectureLength" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">تاريخ المحاضرة</label>
+                <input
+                  class="form-control"
+                  type="date"
+                  formControlName="lectureDate"
+                />
+              </div>
+              <div class="col-12">
+                <label class="form-label">الوصف</label>
+                <textarea
+                  class="form-control"
+                  formControlName="description"
+                  rows="2"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mt-3 text-end">
+              <button class="btn btn-success me-2" type="submit">حفظ</button>
+              <button
+                class="btn btn-secondary"
+                (click)="cancelEdit()"
+                type="button"
+              >
+                إلغاء
+              </button>
+            </div>
+          </form>
+        </ng-container>
+
+        <ng-template #displayMode>
+          <h6><strong>المحاضرة:</strong> {{ werd.lectureName }}</h6>
+          <p><strong>الشيخ:</strong> {{ werd.teacherName }}</p>
+          <p><strong>المدة:</strong> {{ werd.lectureLength }}</p>
+          <p>
+            <strong>التاريخ:</strong> {{ werd.lectureDate | date : "fullDate" }}
+          </p>
+          <p><strong>الوصف:</strong> {{ werd.description }}</p>
+          <div class="text-end">
+            <button
+              class="btn btn-sm btn-outline-primary me-2"
+              (click)="startEdit(werd)"
+            >
+              تعديل
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="delete(werd.id)"
+            >
+              حذف
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <p class="text-center text-muted">لا يوجد أي ورد استماع لهذا الأسبوع.</p>
+    </ng-template>
+  </ng-template>
+</div>

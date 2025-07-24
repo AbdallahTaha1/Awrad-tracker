@@ -1,0 +1,63 @@
+<app-admin-header></app-admin-header>
+<div class="container mt-4">
+  <h3 class="mb-4">إدارة تعيين المعلمين إلى المجموعات</h3>
+
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>اسم المعلم</th>
+        <th>المجموعات الحالية</th>
+        <th>إضافة لمجموعة</th>
+        <th>إجراء</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let teacher of teachers">
+        <td>{{ teacher.fullName }}</td>
+
+        <!-- المجموعات الحالية -->
+        <td>
+          <div
+            *ngFor="let group of teacher.groups"
+            class="d-flex align-items-center justify-content-between"
+          >
+            <span>{{ group.name }}</span>
+            <button
+              class="btn btn-sm btn-danger ms-2"
+              (click)="removeGroup(teacher.id, group.id)"
+            >
+              إزالة
+            </button>
+          </div>
+        </td>
+
+        <!-- اختيار مجموعة جديدة -->
+        <td>
+          <select
+            class="form-select"
+            [(ngModel)]="selectedGroups[teacher.id]"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option [value]="null">اختر مجموعة</option>
+            <option *ngFor="let group of groups" [value]="group.id">
+              {{ group.name }}
+            </option>
+          </select>
+        </td>
+
+        <!-- زر الإسناد -->
+        <td>
+          <button
+            class="btn btn-sm btn-primary"
+            (click)="assignGroup(teacher.id)"
+            [disabled]="!selectedGroups[teacher.id]"
+          >
+            إسناد
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="message" class="alert alert-info mt-3">{{ message }}</div>
+</div>

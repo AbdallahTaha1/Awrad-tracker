@@ -1,0 +1,33 @@
+<app-admin-header></app-admin-header>
+<div class="card p-4 shadow-sm">
+  <h4>{{ isEditMode ? "تعديل المجموعة" : "إضافة مجموعة جديدة" }}</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label class="form-label">اسم المجموعة</label>
+      <input
+        class="form-control"
+        formControlName="name"
+        placeholder="أدخل اسم المجموعة"
+      />
+      <div
+        *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+        class="text-danger"
+      >
+        الاسم مطلوب وأقصاه 100 حرف
+      </div>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="form.invalid || loading"
+    >
+      {{ loading ? "جارٍ الإرسال..." : isEditMode ? "تحديث" : "إضافة" }}
+    </button>
+
+    <div *ngIf="errorMessage" class="text-danger mt-2">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

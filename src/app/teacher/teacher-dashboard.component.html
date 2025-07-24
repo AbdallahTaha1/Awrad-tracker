@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">لوحة متابعة الطلاب</h2>
+
+  <!-- مؤشر التحميل -->
+  <div *ngIf="loading" class="text-center my-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">جاري التحميل...</span>
+    </div>
+  </div>
+
+  <!-- رسالة خطأ -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- عرض المجموعات إن وُجدت -->
+  <ng-container *ngIf="groups.length > 0">
+    <div *ngFor="let group of groups" class="card my-3">
+      <div class="card-header bg-primary text-white">
+        {{ group.groupName }}
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead class="table-light">
+            <tr>
+              <th>الاسم</th>
+              <th>البريد الإلكتروني</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of group.students">
+              <td>{{ student.fullName }}</td>
+              <td>{{ student.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- رسالة في حال عدم وجود مجموعات -->
+  <div
+    *ngIf="!loading && groups?.length === 0"
+    class="alert alert-info text-center my-4"
+  >
+    لا توجد مجموعات أو طلاب أنت مسؤول عنهم حالياً.
+  </div>
+</div>

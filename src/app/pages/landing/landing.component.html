@@ -1,0 +1,92 @@
+<app-header></app-header>
+
+<div dir="rtl" class="bg-light text-dark">
+  <!-- Hero Section -->
+  <section class="container py-5 text-center">
+    <h1 class="display-4 fw-bold">
+      مرحبًا بك في <span class="text-primary">مُتعقّب الأوراد</span>
+    </h1>
+    <p class="lead mt-3">
+      منصتك الذكية لإدارة ومتابعة الأوراد اليومية، مصمم خصيصًا للطلاب والمعلمين.
+    </p>
+    <div class="mt-4">
+      <a routerLink="/login" class="btn btn-primary btn-lg me-3"
+        >تسجيل الدخول</a
+      >
+      <a routerLink="/register" class="btn btn-outline-secondary btn-lg"
+        >إنشاء حساب</a
+      >
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="bg-white py-5">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">لوحة تحكم الطالب</h5>
+              <p class="card-text">
+                واجهة بسيطة لمتابعة إنجاز الأوراد اليومية ورفع التقارير.
+              </p>
+              <a routerLink="/student" class="btn btn-outline-primary"
+                >عرض لوحة الطالب</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">لوحة تحكم المعلم</h5>
+              <p class="card-text">
+                إدارة الطلاب، تقييم الأوراد، وتقديم الملاحظات بسهولة.
+              </p>
+              <a routerLink="/teacher" class="btn btn-outline-primary"
+                >عرض لوحة المعلم</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">نظام المجموعات</h5>
+              <p class="card-text">
+                تنظيم الطلاب ضمن مجموعات لتسهيل المتابعة والإشراف.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4">
+        <img
+          src="landing-illustration.jpg"
+          class="img-fluid rounded"
+          alt="تطبيق متابعة الأوراد"
+        />
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold mb-3">لماذا مُتعقّب الأوراد؟</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">واجهة عربية سهلة الاستخدام</li>
+          <li class="list-group-item">نظام تقييم تلقائي وعادل</li>
+          <li class="list-group-item">مرونة للطلاب والمعلمين في الاستخدام</li>
+          <li class="list-group-item">أمان وخصوصية عالية</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white text-center py-4">
+    <p class="mb-0">جميع الحقوق محفوظة &copy; 2025 - مُتعقّب الأوراد</p>
+  </footer>
+</div>

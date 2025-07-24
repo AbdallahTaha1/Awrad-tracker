@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <h2 class="mb-4">سجل تتبع القرآن</h2>
+
+  <div *ngIf="trackings.length === 0" class="alert alert-info">
+    لا توجد بيانات
+  </div>
+
+  <table class="table table-bordered" *ngIf="trackings.length > 0">
+    <thead>
+      <tr>
+        <th>التاريخ</th>
+        <th>الحفظ</th>
+        <th>المراجعة</th>
+        <th>الدرجة</th>
+        <th>ملاحظات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of trackings">
+        <td>{{ item.date | date : "yyyy-MM-dd" }}</td>
+        <td>
+          {{ item.memorizationStartSurah }} - {{ item.memorizationEndSurah }}
+        </td>
+        <td>{{ item.revisionStartSurah }} - {{ item.revisionEndSurah }}</td>
+        <td>{{ item.score }}</td>
+        <td>{{ item.notes }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

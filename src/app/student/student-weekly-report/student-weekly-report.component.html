@@ -1,0 +1,106 @@
+<app-header></app-header>
+<div
+  style="max-width: 800px"
+  class="container mt-5 mb-5 report-box p-4 rounded shadow bg-white"
+>
+  <h2 class="text-center fw-bold mb-1 fs-4 border-bottom pb-2">
+    تقرير الأسبوع
+  </h2>
+
+  <!-- التاريخ -->
+  <p class="text-center text-muted mb-4 fs-5">
+    <i class="bi bi-calendar-event me-2"></i>
+    {{ report?.period || "جاري التحميل..." }}
+  </p>
+
+  <!-- Navigation -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button class="btn btn-outline-primary" (click)="goToPreviousWeek()">
+      ← الأسبوع السابق
+    </button>
+    <div class="fw-semibold text-muted small d-none d-md-block" style="">
+      {{ report?.period }}
+    </div>
+    <button
+      class="btn btn-outline-primary"
+      (click)="goToNextWeek()"
+      [disabled]="!canGoForward"
+    >
+      الأسبوع التالي →
+    </button>
+  </div>
+
+  <!-- Total Score -->
+  <div class="text-center mb-4">
+    <span
+      class="badge fs-5 px-4 py-3"
+      [ngClass]="{
+        'bg-success': report?.totalScore === report?.maxScore,
+        'bg-danger': report?.totalScore! < report?.maxScore!
+      }"
+    >
+      🏆 المجموع الكلي: {{ report?.totalScore }} / {{ report?.maxScore }}
+    </span>
+  </div>
+
+  <!-- Items Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered text-center align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>الورد</th>
+          <th>عدد المحاولات</th>
+          <th>تم ✅</th>
+          <th>لم يتم ❌</th>
+          <th>النسبة</th>
+          <th>الدرجات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of report?.items">
+          <td class="fw-bold">{{ item.title }}</td>
+          <td>{{ item.totalSubmissions }}</td>
+          <td class="text-success fw-semibold">{{ item.completedCount }}</td>
+          <td class="text-danger fw-semibold">{{ item.missedCount }}</td>
+          <td>
+            <div class="progress" style="height: 22px">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                [ngClass]="{
+                  'bg-success': getCompletionPercentage(item) >= 75,
+                  'bg-warning':
+                    getCompletionPercentage(item) >= 50 &&
+                    getCompletionPercentage(item) < 75,
+                  'bg-danger': getCompletionPercentage(item) < 50
+                }"
+                [style.width.%]="
+                  (item.completedCount / item.totalSubmissions) * 100
+                "
+              >
+                {{
+                  (item.completedCount / item.totalSubmissions) * 100
+                    | number : "1.0-0"
+                }}%
+              </div>
+            </div>
+          </td>
+          <td>
+            <span
+              class="badge px-3 py-2"
+              [ngClass]="{
+                'bg-success': getScorePercentage(item) >= 75,
+                'bg-warning':
+                  getScorePercentage(item) >= 50 &&
+                  getScorePercentage(item) < 75,
+                'bg-danger': getScorePercentage(item) < 50
+              }"
+            >
+              {{ item.totalScore }} / {{ item.maxPossibleScore }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
