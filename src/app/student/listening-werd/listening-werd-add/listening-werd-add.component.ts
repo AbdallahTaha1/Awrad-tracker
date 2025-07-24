@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ListeningWerdService } from '../../../listening-werd.service';
+import { ListeningWerdService } from '../../../core/services/listening-werd.service';
 import { Router } from '@angular/router';
 import { CreateListeningWerdDto } from '../../../core/models/listeningWerd/create-listening-werd-dto';
 

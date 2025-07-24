@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListeningWerdService } from '../../../listening-werd.service';
+import { ListeningWerdService } from '../../../core/services/listening-werd.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../../layout/header/header.component';

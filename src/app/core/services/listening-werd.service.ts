@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ListeningWerdDto } from './core/models/listeningWerd/listening-werd-dto';
+import { ListeningWerdDto } from '../models/listeningWerd/listening-werd-dto';
 import { Observable } from 'rxjs';
-import { CreateListeningWerdDto } from './core/models/listeningWerd/create-listening-werd-dto';
+import { CreateListeningWerdDto } from '../models/listeningWerd/create-listening-werd-dto';
 
 @Injectable({
   providedIn: 'root',
