@@ -15,8 +15,8 @@ export class SalahService {
     return this.http.get<SalahWerdSubmission[]>(`${this.baseUrl}/recent`);
   }
 
-  setSalahType(id: number, type: number): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/type/${id}`, { type });
+  setSalahType(id: number, salahType: number): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/type/${id}`, { salahType });
   }
 
   setAzkar(id: number, azkar: boolean): Observable<void> {

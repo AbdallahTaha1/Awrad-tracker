@@ -22,91 +22,93 @@
     *ngIf="groupedSubmissions && groupedSubmissions[selectedTab] as submissions"
   >
     <div *ngIf="submissions.length > 0; else noData">
-      <table class="table table-bordered text-center">
-        <thead class="table-light">
-          <tr>
-            <th>الصلاة</th>
-            <th>نوع الصلاة</th>
-            <th>الأذكار</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let sub of submissions">
-            <td>{{ sub.salahName }}</td>
+      <div class="table-responsive">
+        <table class="table table-bordered text-center">
+          <thead class="table-light">
+            <tr>
+              <th>الصلاة</th>
+              <th>نوع الصلاة</th>
+              <th>الأذكار</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sub of submissions">
+              <td>{{ sub.salahName }}</td>
 
-            <!-- نوع الصلاة -->
-            <td>
-              <ng-container *ngIf="sub.salahType === null; else salahBadge">
-                <button
-                  class="btn btn-sm btn-outline-success me-1"
-                  (click)="setSalahType(sub, 1)"
-                >
-                  تكبيرة الإحرام
-                </button>
-                <button
-                  class="btn btn-sm btn-outline-warning me-1"
-                  (click)="setSalahType(sub, 2)"
-                >
-                  جماعة
-                </button>
-                <button
-                  class="btn btn-sm btn-outline-danger"
-                  (click)="setSalahType(sub, 3)"
-                >
-                  منفرد
-                </button>
-              </ng-container>
-              <ng-template #salahBadge>
-                <span
-                  class="px-3 py-1 rounded-pill shadow-sm fw-semibold text-white"
-                  [ngClass]="{
-                    'bg-success text-white': sub.salahType === 1,
-                    'bg-warning text-white': sub.salahType === 2,
-                    'bg-danger text-white': sub.salahType === 3
+              <!-- نوع الصلاة -->
+              <td>
+                <ng-container *ngIf="sub.salahType === null; else salahBadge">
+                  <button
+                    class="btn btn-sm btn-outline-success me-1"
+                    (click)="setSalahType(sub, 0)"
+                  >
+                    تكبيرة الإحرام
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-warning me-1"
+                    (click)="setSalahType(sub, 1)"
+                  >
+                    جماعة
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="setSalahType(sub, 2)"
+                  >
+                    منفرد
+                  </button>
+                </ng-container>
+                <ng-template #salahBadge>
+                  <span
+                    class="px-3 py-1 rounded-pill shadow-sm fw-semibold text-white"
+                    [ngClass]="{
+                    'bg-success': sub.salahType === 0,
+                    'bg-warning': sub.salahType === 1,
+                    'bg-info': sub.salahType === 2,
                   }"
-                >
-                  {{
-                    sub.salahType === 1
-                      ? "تكبيرة الإحرام"
-                      : sub.salahType === 2
-                      ? "جماعة"
-                      : "منفرد"
-                  }}
-                </span>
-              </ng-template>
-            </td>
+                  >
+                    {{
+                      sub.salahType === 0
+                        ? "تكبيرة الإحرام"
+                        : sub.salahType === 1
+                        ? "جماعة"
+                        : "منفرد"
+                    }}
+                  </span>
+                </ng-template>
+              </td>
 
-            <!-- الأذكار -->
-            <td>
-              <ng-container *ngIf="sub.azkar === null; else azkarBadge">
-                <button
-                  class="btn btn-sm btn-outline-primary me-2"
-                  (click)="setAzkar(sub, true)"
-                >
-                  تمت
-                </button>
-                <button
-                  class="btn btn-sm btn-outline-danger"
-                  (click)="setAzkar(sub, false)"
-                >
-                  لم تتم
-                </button>
-              </ng-container>
-              <ng-template #azkarBadge>
-                <span
-                  class="px-3 py-1 rounded-pill shadow-sm fw-semibold"
-                  [ngClass]="{
-                    'bg-primary text-white': sub.azkar === true,
-                    'bg-secondary text-white': sub.azkar === false
-                  }"
-                >
-                  {{ sub.azkar ? "تمت" : "لم تتم" }}
-                </span>
-              </ng-template>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <!-- الأذكار -->
+              <td>
+                <ng-container *ngIf="sub.azkar === null; else azkarBadge">
+                  <button
+                    class="btn btn-sm btn-outline-primary me-2"
+                    (click)="setAzkar(sub, true)"
+                  >
+                    تمت
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="setAzkar(sub, false)"
+                  >
+                    لم تتم
+                  </button>
+                </ng-container>
+                <ng-template #azkarBadge>
+                  <span
+                    class="px-3 py-1 rounded-pill shadow-sm fw-semibold"
+                    [ngClass]="{
+                      'bg-primary text-white': sub.azkar === true,
+                      'bg-secondary text-white': sub.azkar === false
+                    }"
+                  >
+                    {{ sub.azkar ? "تمت" : "لم تتم" }}
+                  </span>
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </ng-container>
 

@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+<div class="container mt-4 report-box bg-white p-4 shadow rounded" dir="rtl">
+  <h4 class="text-center fw-bold border-bottom pb-2 mb-4">
+    أوراد الترتيل الشهودي خلال الأسبوع
+    <br />
+    <small class="text-muted">{{ weekRangeText }}</small>
+  </h4>
+
+  <ng-container *ngIf="loading; else loaded">
+    <p class="text-center text-muted">جارٍ التحميل...</p>
+  </ng-container>
+
+  <ng-template #loaded>
+    <div *ngIf="werds.length > 0; else noData">
+      <div
+        *ngFor="let record of werds"
+        class="border rounded mb-3 p-3 bg-light-subtle position-relative"
+      >
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="flex-grow-1 pe-3">
+            <p class="mb-2">
+              <strong class="text-primary"
+                ><i class="bi bi-bookmark"></i> الآيات:</strong
+              >
+              {{ record.verses }}
+            </p>
+            <p class="mb-2">
+              <strong class="text-primary"
+                ><i class="bi bi-info-circle"></i> الفوائد:</strong
+              >
+              {{ record.description }}
+            </p>
+          </div>
+
+          <div class="text-nowrap ms-3">
+            <button
+              class="btn btn-sm btn-outline-primary me-2"
+              (click)="startEdit(record.id)"
+            >
+              <i class="bi bi-pencil"></i> تعديل
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="deleteWerd(record.id)"
+            >
+              <i class="bi bi-trash"></i> حذف
+            </button>
+          </div>
+        </div>
+
+        <div class="text-muted mt-3 text-end small">
+          <i class="bi bi-calendar3"></i>
+          التاريخ: {{ record.date | date : "fullDate" : "" : "ar-EG" }}
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <p class="text-center text-muted">لا توجد أوراد لهذا الأسبوع.</p>
+    </ng-template>
+  </ng-template>
+</div>

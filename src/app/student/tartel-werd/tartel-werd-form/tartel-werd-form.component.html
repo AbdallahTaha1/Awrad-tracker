@@ -1,0 +1,73 @@
+<app-header></app-header>
+
+<div class="container mt-4 bg-white p-4 shadow rounded" dir="rtl">
+  <h4 class="text-center fw-bold border-bottom pb-3 mb-4">
+    إضافة ورد ترتيل جديد
+  </h4>
+
+  <form [formGroup]="werdForm" (ngSubmit)="submit()" novalidate>
+    <div class="mb-3">
+      <label for="verses" class="form-label"> الآيات (الفرق القرآني) </label>
+      <input
+        type="text"
+        id="verses"
+        formControlName="verses"
+        class="form-control"
+        placeholder="مثال: سورة إبراهيم من الآية ١٠ إلى ٢٠"
+      />
+      <div
+        *ngIf="submitted && werdForm.get('verses')?.invalid"
+        class="text-danger mt-1"
+      >
+        الآيات مطلوبة.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">الفوائد</label>
+      <textarea
+        id="description"
+        rows="3"
+        class="form-control"
+        formControlName="description"
+        placeholder="ما هي المعاني التي أحسست بها"
+      ></textarea>
+      <div
+        *ngIf="submitted && werdForm.get('description')?.invalid"
+        class="text-danger mt-1"
+      >
+        الوصف مطلوب.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="date" class="form-label">التاريخ</label>
+      <input
+        type="date"
+        id="date"
+        class="form-control"
+        formControlName="date"
+      />
+      <div
+        *ngIf="submitted && werdForm.get('date')?.invalid"
+        class="text-danger mt-1"
+      >
+        التاريخ مطلوب.
+      </div>
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">
+        {{ submitting ? "جاري الحفظ..." : "حفظ الورد" }}
+      </button>
+    </div>
+
+    <div
+      *ngIf="successMessage"
+      class="alert alert-success text-center mt-4"
+      role="alert"
+    >
+      {{ successMessage }}
+    </div>
+  </form>
+</div>

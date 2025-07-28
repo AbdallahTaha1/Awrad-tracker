@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<div class="container mt-4 report-box bg-white p-4 shadow rounded" dir="rtl">
+  <h4 class="text-center fw-bold border-bottom pb-2 mb-3 text-primary">
+    أوراد الوالدين خلال الأسبوع
+    <br />
+    <small class="text-muted">{{ weekRangeText }}</small>
+  </h4>
+
+  <!-- أزرار التنقل -->
+  <div class="d-flex justify-content-center gap-3 mb-4">
+    <button class="btn btn-outline-primary" (click)="goToPreviousWeek()">
+      <i class="bi bi-arrow-right"></i> الأسبوع السابق
+    </button>
+    <button class="btn btn-outline-primary" (click)="goToNextWeek()">
+      الأسبوع التالي <i class="bi bi-arrow-left"></i>
+    </button>
+  </div>
+
+  <!-- زر إضافة -->
+  <div class="text-end mb-3">
+    <button
+      class="btn btn-success"
+      type="button"
+      [routerLink]="['/student/parentsWerd/add']"
+    >
+      + إضافة ورد
+    </button>
+  </div>
+
+  <!-- تحميل -->
+  <div *ngIf="loading" class="text-center text-muted">جارٍ التحميل...</div>
+
+  <!-- لا يوجد بيانات -->
+  <div
+    *ngIf="!loading && records.length === 0"
+    class="alert alert-info text-center"
+  >
+    لا توجد أوراد لهذا الأسبوع.
+  </div>
+
+  <!-- قائمة الأوراد -->
+  <div *ngIf="records.length > 0">
+    <div
+      *ngFor="let record of records"
+      class="border rounded mb-3 p-3 bg-light-subtle position-relative"
+    >
+      <p class="mb-2">
+        <strong class="text-primary"
+          ><i class="bi bi-calendar-event"></i> التاريخ:</strong
+        >
+        {{ record.date | date : "fullDate" : "" : "ar-EG" }}
+      </p>
+      <p class="mb-0">
+        <strong class="text-primary"
+          ><i class="bi bi-info-circle"></i> الوصف:</strong
+        >
+        {{ record.description }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { ListeningWerdService } from '../../../core/services/listening-werd.service';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../../layout/header/header.component';
 import { ListeningWerdDto } from '../../../core/models/listeningWerd/listening-werd-dto';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ListeningWerdService } from '../../../core/services/listening-werd.service';
 
 @Component({
   selector: 'app-listening-werd-list',
@@ -12,81 +12,63 @@ import { RouterModule } from '@angular/router';
   templateUrl: './listening-werd-list.component.html',
   styleUrl: './listening-werd-list.component.css',
 })
-export class ListeningWerdListComponent {
+export class ListeningWerdListComponent implements OnInit {
   werds: ListeningWerdDto[] = [];
-  editingWerdId: number | null = null;
-  editForm!: FormGroup;
+  weekRangeText: string = '';
+  currentWeekStart: Date = this.getStartOfWeek(new Date());
   loading = false;
+  isCurrentWeek: boolean = true;
 
   constructor(
     private werdService: ListeningWerdService,
-    private fb: FormBuilder
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.editForm = this.fb.group({
-      lectureName: [''],
-      teacherName: [''],
-      lectureLength: [''],
-      lectureDate: [''],
-      description: [''],
-    });
-
+    this.updateWeekText();
     this.loadThisWeekWerds();
   }
 
-  private getWeekStartAndEnd(): [Date, Date] {
-    const today = new Date();
-    const day = today.getDay(); // 0 (Sun) to 6 (Sat)
-    const diffToSaturday = (day + 1) % 7; // How many days since Saturday
-    const start = new Date(today);
-    start.setDate(today.getDate() - diffToSaturday);
-    start.setHours(0, 0, 0, 0);
+  getStartOfWeek(date: Date): Date {
+    const day = date.getDay(); // 0 = Sunday, ..., 6 = Saturday
+    const diff = (day + 1) % 7; // 6 (Saturday) -> 0, 0 (Sunday) -> 1, ..., 5 (Friday) -> 6
+    const start = new Date(date);
+    start.setDate(date.getDate() - diff);
+    return start;
+  }
 
+  getEndOfWeek(start: Date): Date {
     const end = new Date(start);
     end.setDate(start.getDate() + 6);
-    end.setHours(23, 59, 59, 999);
+    return end;
+  }
 
-    return [start, end];
+  updateWeekText(): void {
+    const start = this.currentWeekStart;
+    const end = this.getEndOfWeek(start);
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'short',
+    };
+
+    this.weekRangeText = `${start.toLocaleDateString(
+      'ar-EG',
+      options
+    )} - ${end.toLocaleDateString('ar-EG', options)}`;
   }
 
   loadThisWeekWerds(): void {
-    this.loading = true;
-    const [start, end] = this.getWeekStartAndEnd();
+    this.updateWeekText();
+    this.updateIsCurrentWeek();
 
-    this.werdService.getMyWerds().subscribe({
-      next: (all) => {
-        this.werds = all.filter((w) => {
-          const date = new Date(w.lectureDate);
-          return date >= start && date <= end;
-        });
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error loading werds', err);
-        this.loading = false;
-      },
+    this.werdService.getMyWerds(this.currentWeekStart).subscribe({
+      next: (data) => (this.werds = data),
+      error: (err) => console.error(err),
     });
   }
 
-  startEdit(werd: ListeningWerdDto) {
-    this.editingWerdId = werd.id;
-    this.editForm.patchValue(werd);
-  }
-
-  cancelEdit() {
-    this.editingWerdId = null;
-    this.editForm.reset();
-  }
-
-  saveEdit(id: number) {
-    this.werdService.update(id, this.editForm.value).subscribe({
-      next: () => {
-        this.loadThisWeekWerds();
-        this.cancelEdit();
-      },
-      error: (err) => console.error('Update failed', err),
-    });
+  edit(id: number) {
+    this.router.navigate(['/student/listening/edit', id]);
   }
 
   delete(id: number) {
@@ -96,5 +78,35 @@ export class ListeningWerdListComponent {
         error: (err) => console.error('Delete failed', err),
       });
     }
+  }
+
+  updateIsCurrentWeek() {
+    const todayStart = this.getStartOfWeek(new Date());
+    this.isCurrentWeek =
+      this.currentWeekStart.toDateString() === todayStart.toDateString();
+  }
+
+  goToCurrentWeek() {
+    this.currentWeekStart = this.getStartOfWeek(new Date());
+    this.updateWeekText();
+    this.loadThisWeekWerds();
+  }
+
+  nextWeek(): void {
+    const next = new Date(this.currentWeekStart);
+    next.setDate(next.getDate() + 7);
+
+    const today = new Date();
+    if (next <= today) {
+      this.currentWeekStart = next;
+      this.updateIsCurrentWeek();
+      this.loadThisWeekWerds();
+    }
+  }
+
+  prevWeek(): void {
+    this.currentWeekStart.setDate(this.currentWeekStart.getDate() - 7);
+    this.updateIsCurrentWeek();
+    this.loadThisWeekWerds();
   }
 }

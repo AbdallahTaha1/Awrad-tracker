@@ -1,0 +1,76 @@
+/* ✅ شكل الدائرة الصغيرة */
+.todo-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-inline-end: 6px;
+}
+
+/* ✅ حجم الخط الافتراضي */
+body {
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* ✅ تحسين البادجات */
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+}
+
+/* ✅ تحسين الأزرار الصغيرة */
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.55rem;
+}
+
+/* ✅ العناصر داخل القائمة */
+.list-group-item {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s ease-in-out;
+  align-items: center;
+}
+
+/* ✅ تحسين الشكل عند الإنجاز أو عدم الإنجاز */
+.list-group-item.bg-light {
+  background-color: #d4edda !important;
+}
+
+.list-group-item.bg-danger {
+  background-color: #f8d7da !important;
+}
+
+/* ✅ للأجهزة الصغيرة جداً */
+@media (max-width: 576px) {
+  body {
+    font-size: 0.95rem;
+  }
+
+  .list-group-item {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    flex-wrap: nowrap !important;
+    min-height: 58px;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .btn-sm {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+  }
+}
+
+.werd-title {
+  text-align: right;
+  direction: rtl;
+  font-weight: bold;
+}

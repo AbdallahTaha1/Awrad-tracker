@@ -9,7 +9,7 @@ import { WerdSubmissionService } from '../../core/services/werd-submission.servi
   selector: 'app-awrad-tracker',
   imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
   templateUrl: './awrad-tracker.component.html',
-  styleUrl: './awrad-tracker.component.css',
+  styleUrls: ['./awrad-tracker.component.css'],
 })
 export class AwradTrackerComponent implements OnInit {
   werds: WerdSubmissionDto[] = [];

@@ -18,6 +18,10 @@ import { ListeningWerdListComponent } from './student/listening-werd/listening-w
 import { ListeningWerdAddComponent } from './student/listening-werd/listening-werd-add/listening-werd-add.component';
 import { QuranTrackingListComponent } from './student/quran-tracking/quran-tracking-list/quran-tracking-list.component';
 import { QuranTrackingFormComponent } from './student/quran-tracking/quran-tracking-form/quran-tracking-form.component';
+import { ParentsWerdListComponent } from './student/parents-werd/Parents-werd-list/parents-werd-list.component';
+import { ParentsWerdFormComponent } from './student/parents-werd/parents-werd-form/parents-werd-form.component';
+import { TartelWerdListComponent } from './student/tartel-werd/tartel-werd-list/tartel-werd-list.component';
+import { TartelWerdFormComponent } from './student/tartel-werd/tartel-werd-form/tartel-werd-form.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -34,10 +38,19 @@ export const routes: Routes = [
       { path: 'weekly-report', component: StudentWeeklyReportComponent },
       { path: 'werd', component: AwradTrackerComponent },
       { path: 'salah', component: SalahTrackerComponent },
+
       { path: 'listening', component: ListeningWerdListComponent },
       { path: 'listening/add', component: ListeningWerdAddComponent },
+      { path: 'listening/edit/:id', component: ListeningWerdAddComponent },
+
       { path: 'quranTracking', component: QuranTrackingListComponent },
       { path: 'quranTracking/add', component: QuranTrackingFormComponent },
+      { path: 'quranTracking/edit/:id', component: QuranTrackingFormComponent },
+
+      { path: 'parentsWerd', component: ParentsWerdListComponent },
+      { path: 'parentsWerd/add', component: ParentsWerdFormComponent },
+      { path: 'tartelWerd', component: TartelWerdListComponent },
+      { path: 'tartelWerd/add', component: TartelWerdFormComponent },
     ],
   },
 

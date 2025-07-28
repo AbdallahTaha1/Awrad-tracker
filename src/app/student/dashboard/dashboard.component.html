@@ -11,9 +11,12 @@
         <p class="text-muted mb-4">
           قم بتسجيل نوع الصلاة وذكر الأذكار لكل صلاة يوميًا.
         </p>
-        <button class="btn btn-outline-primary w-100" (click)="goTo('salah')">
+        <a
+          class="btn btn-outline-primary w-100"
+          [routerLink]="['/student/salah']"
+        >
           الذهاب إلى الصلوات
-        </button>
+        </a>
       </div>
     </div>
 
@@ -22,9 +25,12 @@
       <div class="card h-100 shadow rounded text-center p-4 border-0">
         <h4 class="mb-3">الأوراد اليومية</h4>
         <p class="text-muted mb-4">أكمل وردك اليومي وسجل إنجازه بسهولة.</p>
-        <button class="btn btn-outline-success w-100" (click)="goTo('werd')">
+        <a
+          class="btn btn-outline-success w-100"
+          [routerLink]="['/student/werd']"
+        >
           الذهاب إلى الأوراد
-        </button>
+        </a>
       </div>
     </div>
 
@@ -35,9 +41,12 @@
         <p class="text-muted mb-4">
           استعرض أداءك الأسبوعي واحرص على التحسن المستمر.
         </p>
-        <button class="btn btn-outline-dark w-100" (click)="goTo('report')">
+        <a
+          class="btn btn-outline-dark w-100"
+          [routerLink]="['/student/weekly-report']"
+        >
           عرض التقرير
-        </button>
+        </a>
       </div>
     </div>
 
@@ -48,9 +57,12 @@
         <p class="text-muted mb-4">
           استمع إلى المقرئ وسجل إتمامك للورد المطلوب.
         </p>
-        <button class="btn btn-outline-info w-100" (click)="goTo('listening')">
+        <a
+          class="btn btn-outline-info w-100"
+          [routerLink]="['/student/listening']"
+        >
           الذهاب إلى ورد الاستماع
-        </button>
+        </a>
       </div>
     </div>
 
@@ -59,12 +71,40 @@
       <div class="card h-100 shadow rounded text-center p-4 border-0">
         <h4 class="mb-3">حفظ القرآن</h4>
         <p class="text-muted mb-4">تابع تقدمك في حفظ القرآن الكريم يوميًا.</p>
-        <button
+        <a
           class="btn btn-outline-warning w-100"
-          (click)="goTo('quranTracking')"
+          [routerLink]="['/student/quranTracking']"
         >
           إضافة ورد الحفظ
-        </button>
+        </a>
+      </div>
+    </div>
+
+    <!-- بطاقة بر الوالدين -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow rounded text-center p-4 border-0">
+        <h4 class="mb-3">بر الوالدين</h4>
+        <p class="text-muted mb-4">تابع تقدمك في بر الوالدين</p>
+        <a
+          class="btn btn-outline-warning w-100"
+          [routerLink]="['/student/parentsWerd']"
+        >
+          إضافة ورد بر الوالدين
+        </a>
+      </div>
+    </div>
+
+    <!-- بطاقة ورد الترتيل -->
+    <div class="col-md-4">
+      <div class="card h-100 shadow rounded text-center p-4 border-0">
+        <h4 class="mb-3">ورد الترتيل الشهودي</h4>
+        <p class="text-muted mb-4">تابع تقدمك في ورد الترتيل</p>
+        <a
+          class="btn btn-outline-warning w-100"
+          [routerLink]="['/student/tartelWerd']"
+        >
+          إضافة ورد الترتيل
+        </a>
       </div>
     </div>
   </div>

@@ -1,0 +1,80 @@
+<app-header></app-header>
+
+<div class="container py-5" dir="rtl">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow border-0">
+        <div class="card-body p-4 bg-light">
+          <h4 class="card-title mb-4 d-flex align-items-center">
+            <i class="bi bi-heart-fill text-danger ms-2 fs-4"></i>
+            إضافة ورد بر الوالدين
+          </h4>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <!-- وصف العمل -->
+            <div class="mb-3">
+              <label for="description" class="form-label fw-bold">العمل</label>
+              <textarea
+                id="description"
+                class="form-control"
+                formControlName="description"
+                rows="4"
+                placeholder="اكتب الأعمال التي قمت بها"
+              ></textarea>
+              <div
+                class="text-danger mt-1"
+                *ngIf="f['description'].touched && f['description'].invalid"
+              >
+                يجب كتابة وصف العمل.
+              </div>
+            </div>
+
+            <!-- التاريخ -->
+            <div class="mb-3">
+              <label for="date" class="form-label fw-bold">التاريخ</label>
+              <input
+                type="date"
+                id="date"
+                class="form-control"
+                formControlName="date"
+              />
+              <div
+                class="text-danger mt-1"
+                *ngIf="f['date'].touched && f['date'].invalid"
+              >
+                يرجى اختيار التاريخ.
+              </div>
+            </div>
+
+            <!-- زر الإرسال -->
+            <div class="d-grid">
+              <button
+                class="btn btn-success btn-lg"
+                type="submit"
+                [disabled]="submitting"
+              >
+                {{ submitting ? "جاري الحفظ..." : "حفظ الورد" }}
+              </button>
+            </div>
+
+            <!-- رسالة النجاح -->
+            <div
+              *ngIf="successMessage"
+              class="alert alert-success alert-dismissible fade show mt-4"
+              role="alert"
+            >
+              <i class="bi bi-check-circle-fill me-2"></i>
+              {{ successMessage }}
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

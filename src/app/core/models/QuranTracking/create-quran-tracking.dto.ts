@@ -1,4 +1,4 @@
-export interface QuranTrackingDto {
+export interface CreateQuranTrackingDto {
   date: string;
   memorizationStartSurah: string;
   memorizationEndSurah: string;

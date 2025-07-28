@@ -55,8 +55,6 @@ export class SalahTrackerComponent implements OnInit {
 
   setSalahType(sub: SalahWerdSubmission, type: number) {
     sub.salahType = type;
-
-    // إذا أردت حفظ التغيير فورًا
     this.salahService.setSalahType(sub.id, type).subscribe({
       next: () => console.log('تم تحديث نوع الصلاة'),
       error: () => alert('حدث خطأ أثناء الحفظ'),
@@ -65,8 +63,6 @@ export class SalahTrackerComponent implements OnInit {
 
   setAzkar(sub: SalahWerdSubmission, azkar: boolean) {
     sub.azkar = azkar;
-
-    // إرسال التغيير للسيرفر
     this.salahService.setAzkar(sub.id, azkar).subscribe({
       next: () => console.log('تم تحديث الأذكار'),
       error: () => alert('حدث خطأ أثناء الحفظ'),

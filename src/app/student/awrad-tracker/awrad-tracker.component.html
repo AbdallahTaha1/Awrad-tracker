@@ -1,38 +1,40 @@
 <app-header></app-header>
 
-<div class="" dir="rtl">
+<div class="container" dir="rtl">
   <div class="row justify-content-center">
     <div class="col-md-10">
-      <!-- عنوان الصفحة الرئيسي -->
+      <!-- عنوان الصفحة -->
       <div class="text-center my-4">
-        <h2 class="fw-bold">
+        <h2 class="fw-bold fs-2">
           <i class="fa fa-check-circle text-success"></i>&nbsp; متابعة الأوراد
           اليومية
         </h2>
-        <p class="">راقب إنجازك اليومي بكل سهولة ويُسر 👇</p>
+        <p class="fs-5">راقب إنجازك اليومي بكل سهولة ويُسر 👇</p>
       </div>
 
-      <div class="card">
-        <div class="card-body">
+      <div class="card shadow-sm">
+        <div class="card-body fs-5">
           <!-- التبويبات -->
           <ul class="nav nav-pills mb-4 justify-content-center" id="tabs">
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link active fs-6"
                 data-bs-toggle="tab"
                 href="#today-tab"
                 role="tab"
-                >أوراد اليوم</a
               >
+                أوراد اليوم
+              </a>
             </li>
             <li class="nav-item">
               <a
-                class="nav-link"
+                class="nav-link fs-6"
                 data-bs-toggle="tab"
                 href="#yesterday-tab"
                 role="tab"
-                >أوراد أمس</a
               >
+                أوراد أمس
+              </a>
             </li>
           </ul>
 
@@ -44,65 +46,55 @@
               id="today-tab"
               role="tabpanel"
             >
-              <h5 class="card-header">
+              <h5 class="card-header fs-5">
                 <i class="fa fa-calendar-day text-primary"></i>
                 &nbsp;اليوم - {{ getDayName(todayString) }} - {{ todayString }}
               </h5>
 
               <ng-container
-                *ngIf="
-                  groupedWerds[todayString] &&
-                    groupedWerds[todayString].length > 0;
-                  else noToday
-                "
+                *ngIf="groupedWerds[todayString].length > 0; else noToday"
               >
                 <ul class="list-group list-group-flush p-0">
                   <ng-container *ngFor="let werd of groupedWerds[todayString]">
                     <li
-                      class="list-group-item d-flex flex-wrap align-items-center position-relative"
+                      class="list-group-item d-flex align-items-center justify-content-between flex-nowrap gap-2 fs-5"
                       [ngClass]="{
                         'bg-light': werd.isCompleted === true,
                         'bg-danger': werd.isCompleted === false
                       }"
                       style="--bs-bg-opacity: 0.6"
                     >
-                      <div
-                        class="todo-indicator"
-                        [ngClass]="
-                          werd.isCompleted === true
-                            ? 'bg-success'
-                            : werd.isCompleted === false
-                            ? 'bg-danger'
-                            : 'bg-warning'
-                        "
-                      ></div>
+                      <div class="d-flex align-items-center">
+                        <!-- الدائرة -->
+                        <div class="d-flex align-items-center flex-shrink-0">
+                          <div
+                            class="todo-indicator"
+                            [ngClass]="
+                              werd.isCompleted === true
+                                ? 'bg-success'
+                                : werd.isCompleted === false
+                                ? 'bg-danger'
+                                : 'bg-warning'
+                            "
+                          ></div>
+                        </div>
 
-                      <div class="me-3 mb-2">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          [checked]="werd.isCompleted === true"
-                          disabled
-                        />
+                        <!-- العنوان -->
+                        <div class="werd-title flex-grow-1 text-truncate">
+                          <i class="fa fa-book-open text-primary ms-2"></i>
+                          {{ werd.werdTitle }}
+                        </div>
                       </div>
-
-                      <div class="flex-grow-1 d-flex align-items-center mb-2">
-                        <i class="fa fa-book-open text-primary me-2"></i>
-                        <span class="fw-bold">{{ werd.werdTitle }}</span>
-                      </div>
-
+                      <!-- الحالة والأزرار -->
                       <div
-                        class="d-flex align-items-center ms-auto mb-2 flex-wrap"
+                        class="d-flex align-items-center gap-1 flex-shrink-0"
                       >
                         <span
-                          class="badge me-2 mb-2"
+                          class="badge rounded-pill fs-6"
                           [ngClass]="{
-                            'badge-success bg-success':
-                              werd.isCompleted === true,
-                            'badge-danger bg-danger':
-                              werd.isCompleted === false,
-                            'badge-warning bg-warning':
-                              werd.isCompleted === null
+                            'bg-success': werd.isCompleted === true,
+                            'bg-danger': werd.isCompleted === false,
+                            'bg-warning text-dark': werd.isCompleted === null
                           }"
                         >
                           {{
@@ -116,13 +108,13 @@
 
                         <ng-container *ngIf="werd.isCompleted === null">
                           <button
-                            class="btn btn-outline-success btn-sm me-2 mb-2 px-3 py-1"
+                            class="btn btn-outline-success btn-sm px-2 py-1"
                             (click)="completeWerd(werd.id)"
                           >
                             <i class="fa fa-check"></i>
                           </button>
                           <button
-                            class="btn btn-outline-danger btn-sm mb-2 px-3 py-1"
+                            class="btn btn-outline-danger btn-sm px-2 py-1"
                             (click)="markNotCompleted(werd.id)"
                           >
                             <i class="fa fa-times"></i>
@@ -135,7 +127,7 @@
               </ng-container>
 
               <ng-template #noToday>
-                <div class="alert alert-warning text-center">
+                <div class="alert alert-warning text-center fs-5">
                   لا توجد أوراد لهذا اليوم.
                 </div>
               </ng-template>
@@ -143,7 +135,7 @@
 
             <!-- تبويب أمس -->
             <div class="tab-pane fade" id="yesterday-tab" role="tabpanel">
-              <h5 class="card-header">
+              <h5 class="card-header fs-5">
                 <i class="fa fa-calendar-minus text-secondary"></i>
                 &nbsp;أمس - {{ getDayName(yesterdayString) }} -
                 {{ yesterdayString }}
@@ -151,9 +143,8 @@
 
               <ng-container
                 *ngIf="
-                  groupedWerds[yesterdayString] &&
-                    groupedWerds[yesterdayString].length > 0;
-                  else noToday
+                  groupedWerds[yesterdayString].length > 0;
+                  else noYesterday
                 "
               >
                 <ul class="list-group list-group-flush p-0">
@@ -161,50 +152,45 @@
                     *ngFor="let werd of groupedWerds[yesterdayString]"
                   >
                     <li
-                      class="list-group-item d-flex flex-wrap align-items-center position-relative"
+                      class="list-group-item d-flex align-items-center justify-content-between flex-nowrap gap-2 fs-5"
                       [ngClass]="{
                         'bg-light': werd.isCompleted === true,
                         'bg-danger': werd.isCompleted === false
                       }"
                       style="--bs-bg-opacity: 0.6"
                     >
-                      <div
-                        class="todo-indicator"
-                        [ngClass]="
-                          werd.isCompleted === true
-                            ? 'bg-success'
-                            : werd.isCompleted === false
-                            ? 'bg-danger'
-                            : 'bg-warning'
-                        "
-                      ></div>
-
-                      <div class="me-3 mb-2">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          [checked]="werd.isCompleted === true"
-                          disabled
-                        />
+                      <!-- الدائرة -->
+                      <div class="d-flex align-items-center flex-shrink-0">
+                        <div
+                          class="todo-indicator"
+                          [ngClass]="
+                            werd.isCompleted === true
+                              ? 'bg-success'
+                              : werd.isCompleted === false
+                              ? 'bg-danger'
+                              : 'bg-warning'
+                          "
+                        ></div>
                       </div>
 
-                      <div class="flex-grow-1 d-flex align-items-center mb-2">
-                        <i class="fa fa-book-open text-primary me-2"></i>
-                        <span class="fw-bold">{{ werd.werdTitle }}</span>
+                      <!-- العنوان -->
+                      <div
+                        class="flex-grow-1 fw-bold text-end px-2 overflow-hidden text-truncate"
+                      >
+                        <i class="fa fa-book-open text-primary ms-2"></i>
+                        {{ werd.werdTitle }}
                       </div>
 
+                      <!-- الحالة والأزرار -->
                       <div
-                        class="d-flex align-items-center ms-auto mb-2 flex-wrap"
+                        class="d-flex align-items-center gap-1 flex-shrink-0"
                       >
                         <span
-                          class="badge me-2 mb-2"
+                          class="badge rounded-pill fs-6"
                           [ngClass]="{
-                            'badge-success bg-success':
-                              werd.isCompleted === true,
-                            'badge-danger bg-danger':
-                              werd.isCompleted === false,
-                            'badge-warning bg-warning':
-                              werd.isCompleted === null
+                            'bg-success': werd.isCompleted === true,
+                            'bg-danger': werd.isCompleted === false,
+                            'bg-warning text-dark': werd.isCompleted === null
                           }"
                         >
                           {{
@@ -218,13 +204,13 @@
 
                         <ng-container *ngIf="werd.isCompleted === null">
                           <button
-                            class="btn btn-outline-success btn-sm me-2 mb-2 px-3 py-1"
+                            class="btn btn-outline-success btn-sm px-2 py-1"
                             (click)="completeWerd(werd.id)"
                           >
                             <i class="fa fa-check"></i>
                           </button>
                           <button
-                            class="btn btn-outline-danger btn-sm mb-2 px-3 py-1"
+                            class="btn btn-outline-danger btn-sm px-2 py-1"
                             (click)="markNotCompleted(werd.id)"
                           >
                             <i class="fa fa-times"></i>
@@ -237,7 +223,7 @@
               </ng-container>
 
               <ng-template #noYesterday>
-                <div class="alert alert-warning text-center">
+                <div class="alert alert-warning text-center fs-5">
                   لا توجد أوراد لأمس.
                 </div>
               </ng-template>
