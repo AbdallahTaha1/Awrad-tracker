@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuranTrackingService } from '../../../core/services/quran-tracking.service';
-import { QuranTrackingDto } from '../../../core/models/QuranTracking/quran-tracking-dto';
+import { QuranTrackingDto } from '../../../core/models/quranTrackingDtos/quran-tracking-dto';
 import { HeaderComponent } from '../../../layout/header/header.component';
 import { Router, RouterModule } from '@angular/router';
 
@@ -26,20 +26,26 @@ export class QuranTrackingListComponent implements OnInit {
     this.loadThisWeekTrackings();
   }
 
+  // ======== التاريخ - تحديد بداية ونهاية الأسبوع ========
+
+  /** يُرجع بداية الأسبوع (يوم السبت) */
   getStartOfWeek(date: Date): Date {
-    const day = date.getDay(); // Sunday = 0
-    const diff = (day + 6) % 7; // يجعل السبت = 0
+    const day = date.getDay(); // 0 = Sunday, ..., 6 = Saturday
+    const diff = (day + 1) % 7; // Saturday (6) -> 0
     const start = new Date(date);
     start.setDate(date.getDate() - diff);
+    start.setHours(3, 0, 0, 0); // تعيين الوقت إلى 03:00 صباحًا
     return start;
   }
 
+  /** يُرجع نهاية الأسبوع بناءً على تاريخ البداية */
   getEndOfWeek(start: Date): Date {
     const end = new Date(start);
     end.setDate(start.getDate() + 6);
     return end;
   }
 
+  /** تحديث نص نطاق الأسبوع (مثال: 27 يوليو - 2 أغسطس) */
   updateWeekText(): void {
     const start = this.currentWeekStart;
     const end = this.getEndOfWeek(start);
@@ -47,18 +53,23 @@ export class QuranTrackingListComponent implements OnInit {
       day: 'numeric',
       month: 'short',
     };
+
     this.weekRangeText = `${start.toLocaleDateString(
       'ar-EG',
       options
     )} - ${end.toLocaleDateString('ar-EG', options)}`;
   }
 
-  updateIsCurrentWeek() {
+  /** التحقق ما إذا كان الأسبوع المعروض هو الأسبوع الحالي */
+  updateIsCurrentWeek(): void {
     const todayStart = this.getStartOfWeek(new Date());
     this.isCurrentWeek =
       this.currentWeekStart.toDateString() === todayStart.toDateString();
   }
 
+  // ======== العمليات الرئيسية ========
+
+  /** تحميل الأوراد الخاصة بالأسبوع الحالي */
   loadThisWeekTrackings(): void {
     this.updateWeekText();
     this.updateIsCurrentWeek();
@@ -76,6 +87,13 @@ export class QuranTrackingListComponent implements OnInit {
     });
   }
 
+  /** التنقل إلى الأسبوع السابق */
+  prevWeek(): void {
+    this.currentWeekStart.setDate(this.currentWeekStart.getDate() - 7);
+    this.loadThisWeekTrackings();
+  }
+
+  /** التنقل إلى الأسبوع التالي (فقط إن لم يتجاوز التاريخ الحالي) */
   nextWeek(): void {
     const next = new Date(this.currentWeekStart);
     next.setDate(next.getDate() + 7);
@@ -83,46 +101,33 @@ export class QuranTrackingListComponent implements OnInit {
     const today = new Date();
     if (next <= today) {
       this.currentWeekStart = next;
-      this.updateIsCurrentWeek();
       this.loadThisWeekTrackings();
     }
   }
 
-  previousWeek(): void {
-    this.currentWeekStart.setDate(this.currentWeekStart.getDate() - 7);
-    this.updateIsCurrentWeek();
-    this.loadThisWeekTrackings();
-  }
-
-  backToCurrentWeek(): void {
+  /** العودة إلى الأسبوع الحالي */
+  goToCurrentWeek(): void {
     this.currentWeekStart = this.getStartOfWeek(new Date());
-    this.updateIsCurrentWeek();
     this.loadThisWeekTrackings();
   }
 
-  formatTrackingDate(isoString: string): string {
-    const date = new Date(isoString);
-    return date.toLocaleDateString('ar-EG', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
+  // ======== إجراءات التعديل والحذف ========
+
+  edit(id: number): void {
+    this.router.navigate(['/student/quranTracking/edit', id]);
+  }
+
+  delete(id: number): void {
+    const confirmed = confirm('هل أنت متأكد أنك تريد حذف هذا الورد؟');
+    if (!confirmed) return;
+
+    this.service.delete(id).subscribe({
+      next: () => this.loadThisWeekTrackings(),
+      error: (err) => console.error('Delete failed', err),
     });
   }
 
   onAdd(): void {
     this.router.navigate(['/student/quranTracking/add']);
-  }
-
-  onEdit(id: number): void {
-    this.router.navigate(['/student/quranTracking/edit', id]);
-  }
-
-  onDelete(id: number): void {
-    if (confirm('هل أنت متأكد أنك تريد حذف هذا التتبع؟')) {
-      this.service.delete(id).subscribe({
-        next: () => this.loadThisWeekTrackings(),
-        error: (err) => console.error('Delete failed', err),
-      });
-    }
   }
 }

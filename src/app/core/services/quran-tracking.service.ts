@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { QuranTrackingDto } from '../models/QuranTracking/quran-tracking-dto';
+import { QuranTrackingDto } from '../models/quranTrackingDtos/quran-tracking-dto';
 import { Observable } from 'rxjs';
-import { CreateQuranTrackingDto } from '../models/QuranTracking/create-quran-tracking.dto';
+import { CreateQuranTrackingDto } from '../models/quranTrackingDtos/create-quran-tracking.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -17,16 +17,16 @@ export class QuranTrackingService {
   }
 
   getTrackingById(id: number): Observable<QuranTrackingDto> {
-    return this.http.get<QuranTrackingDto>(`/api/QuranTrackings/${id}`);
+    return this.http.get<QuranTrackingDto>(`${this.apiUrl}/${id}`);
   }
 
   updateTracking(id: number, data: QuranTrackingDto): Observable<any> {
-    return this.http.put(`/api/quran-tracking/${id}`, data);
+    return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
-  getMyTrackings(referenceDate: Date): Observable<QuranTrackingDto[]> {
-    const params = { referenceDate: referenceDate.toISOString() };
-    return this.http.get<QuranTrackingDto[]>(`${this.apiUrl}/my`, { params });
+  getMyTrackings(date: Date): Observable<QuranTrackingDto[]> {
+    const params = { date: date.toISOString() };
+    return this.http.get<QuranTrackingDto[]>(`${this.apiUrl}`, { params });
   }
 
   update(id: number, dto: QuranTrackingDto): Observable<void> {

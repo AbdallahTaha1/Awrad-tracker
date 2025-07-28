@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { WerdDto } from '../../../core/models/werd/werd.dto';
 import { WerdService } from '../../../core/services/werd.service';
 import { TaskType } from '../../../core/models/TaskType.enum';
 import { AdminHeaderComponent } from '../../../layout/admin-header/admin-header.component';
+import { WerdDto } from '../../../core/models/werdDtos/werd.dto';
 
 @Component({
   selector: 'app-werd-list',

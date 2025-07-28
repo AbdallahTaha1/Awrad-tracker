@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WerdDto } from '../models/werd/werd.dto';
-import { CreateWerdDto } from '../models/werd/create-werd.dto';
-import { UpdateWerdDto } from '../models/werd/update-werd.dto';
+import { WerdDto } from '../models/werdDtos/werd.dto';
+import { CreateWerdDto } from '../models/werdDtos/create-werd.dto';
+import { UpdateWerdDto } from '../models/werdDtos/update-werd.dto';
 
 @Injectable({
   providedIn: 'root',

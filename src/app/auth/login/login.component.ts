@@ -8,7 +8,7 @@ import {
 
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { Login } from '../../core/models/auth/login.dto';
+import { Login } from '../../core/models/authDtos/login.dto';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../layout/header/header.component';
 

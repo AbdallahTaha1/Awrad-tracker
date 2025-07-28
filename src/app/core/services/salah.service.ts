@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SalahWerdSubmission } from '../models/salah-werd-submission';
+import { SalahWerdSubmission } from '../models/SalahWerdDtos/salah-werd-submission';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

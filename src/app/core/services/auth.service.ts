@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, tap } from 'rxjs';
-import { Register } from '../models/auth/register.dto';
-import { AuthResult } from '../models/auth/auth-result.dto';
-import { Login } from '../models/auth/login.dto';
+import { Register } from '../models/authDtos/register.dto';
+import { AuthResult } from '../models/authDtos/auth-result.dto';
+import { Login } from '../models/authDtos/login.dto';
 
 @Injectable({
   providedIn: 'root',

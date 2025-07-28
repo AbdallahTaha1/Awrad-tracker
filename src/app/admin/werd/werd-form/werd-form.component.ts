@@ -8,10 +8,10 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WerdService } from '../../../core/services/werd.service';
-import { UpdateWerdDto } from '../../../core/models/werd/update-werd.dto';
-import { CreateWerdDto } from '../../../core/models/werd/create-werd.dto';
 import { TaskType } from '../../../core/models/TaskType.enum';
 import { AdminHeaderComponent } from '../../../layout/admin-header/admin-header.component';
+import { UpdateWerdDto } from '../../../core/models/werdDtos/update-werd.dto';
+import { CreateWerdDto } from '../../../core/models/werdDtos/create-werd.dto';
 
 @Component({
   selector: 'app-werd-form',
@@ -67,9 +67,8 @@ export class WerdFormComponent implements OnInit {
     const dto = {
       ...this.form.value,
       type: Number(this.form.value.type),
-      maxScore: Number(this.form.value.score),
+      Score: Number(this.form.value.score),
       isActive: Boolean(this.form.value.isActive),
-      Order: Number(this.form.value.Order),
     };
 
     if (this.isEdit) {

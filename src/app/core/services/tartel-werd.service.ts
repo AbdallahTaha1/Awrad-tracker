@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { TartelWerd } from '../models/TartelWerd/tartel-werd';
+import { TartelWerd } from '../models/tartelWerdDtos/tartel-werd';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreateTartelWerd } from '../models/TartelWerd/create-tartel-werd';
+import { CreateTartelWerd } from '../models/tartelWerdDtos/create-tartel-werd';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +13,24 @@ export class TartelWerdService {
   constructor(private http: HttpClient) {}
 
   addWerd(dto: CreateTartelWerd): Observable<TartelWerd> {
-    return this.http.post<TartelWerd>(`${this.apiUrl}`, dto);
+    console.log(dto);
+    return this.http.post<TartelWerd>(this.apiUrl, dto);
   }
 
-  getThisWeek(): Observable<TartelWerd[]> {
-    return this.http.get<TartelWerd[]>(`${this.apiUrl}/ThisWeek`);
+  getWerdForWeek(startDate?: Date): Observable<TartelWerd[]> {
+    if (startDate) {
+      console.log('startDate');
+      const formattedDate = startDate?.toISOString().split('T')[0];
+      return this.http.get<TartelWerd[]>(
+        `${this.apiUrl}?date=${formattedDate}`
+      );
+    } else {
+      return this.http.get<TartelWerd[]>(this.apiUrl);
+    }
+  }
+
+  getWerdById(id: number): Observable<TartelWerd> {
+    return this.http.get<TartelWerd>(`${this.apiUrl}/${id}`);
   }
 
   update(id: number, dto: CreateTartelWerd): Observable<void> {

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuranTrackingService } from '../../../core/services/quran-tracking.service';
 import { HeaderComponent } from '../../../layout/header/header.component';
 
@@ -17,7 +17,7 @@ import { HeaderComponent } from '../../../layout/header/header.component';
   templateUrl: './quran-tracking-form.component.html',
   styleUrl: './quran-tracking-form.component.css',
 })
-export class QuranTrackingFormComponent {
+export class QuranTrackingFormComponent implements OnInit {
   form!: FormGroup;
   message = '';
   isEditMode = false;
@@ -26,7 +26,8 @@ export class QuranTrackingFormComponent {
   constructor(
     private fb: FormBuilder,
     private service: QuranTrackingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,21 +47,19 @@ export class QuranTrackingFormComponent {
         this.isEditMode = true;
         this.trackingId = +id;
         this.loadTracking(this.trackingId);
-      } else {
-        // set default date for creation
-        this.form.patchValue({
-          date: new Date().toISOString().substring(0, 10),
-        });
       }
     });
   }
 
   loadTracking(id: number) {
     this.service.getTrackingById(id).subscribe({
-      next: (data) => {
-        this.form.patchValue(data);
+      next: (werd) => {
+        werd.date = this.formatDateForInput(werd.date);
+
+        this.form.patchValue(werd);
       },
       error: () => {
+        console.log('فشل');
         this.message = 'فشل في تحميل البيانات';
       },
     });
@@ -74,7 +73,7 @@ export class QuranTrackingFormComponent {
     if (this.isEditMode && this.trackingId !== null) {
       this.service.updateTracking(this.trackingId, data).subscribe({
         next: (res) => {
-          this.message = res.message || 'تم التحديث بنجاح';
+          this.router.navigate(['/student/quranTracking']);
         },
         error: () => {
           this.message = 'حدث خطأ أثناء التحديث';
@@ -91,5 +90,10 @@ export class QuranTrackingFormComponent {
         },
       });
     }
+  }
+
+  private formatDateForInput(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // "2025-07-28"
   }
 }

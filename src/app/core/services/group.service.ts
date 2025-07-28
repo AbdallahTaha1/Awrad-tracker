@@ -32,8 +32,4 @@ export class GroupService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
-
-  assignTeacher(dto: AssignTeacherGroupDto): Observable<any> {
-    return this.http.post(`${this.baseUrl}/assign-teacher`, dto);
-  }
 }

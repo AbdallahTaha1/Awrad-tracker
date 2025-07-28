@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { teacherWithGroups } from '../../core/models/teacher/teacherWithGroups';
+import { teacherWithGroups } from '../../core/models/teacherDtos/teacherWithGroups';
 import { GroupDto } from '../../core/models/groupDtos/Group.Dto';
 import { GroupService } from '../../core/services/group.service';
 import { TeacherService } from '../../core/services/teacher.service';
@@ -48,7 +48,6 @@ export class AssignTeacherComponent implements OnInit {
   loadGroups() {
     this.groupService.getAll().subscribe({
       next: (data) => {
-        console.log(data);
         this.groups = data;
       },
       error: () => (this.message = 'فشل في تحميل المجموعات'),
@@ -76,7 +75,7 @@ export class AssignTeacherComponent implements OnInit {
   }
 
   removeGroup(teacherId: string, groupId: number) {
-    const dto = { teacherId, groupId };
+    const dto: AssignTeacherGroupDto = { teacherId, groupId };
     this.teacherService.removeFromGroup(dto).subscribe({
       next: () => {
         this.message = 'تمت الإزالة بنجاح';

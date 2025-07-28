@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { SalahWerdSubmission } from '../../core/models/salah-werd-submission';
+import { SalahWerdSubmission } from '../../core/models/SalahWerdDtos/salah-werd-submission';
 import { SalahService } from '../../core/services/salah.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../layout/header/header.component';

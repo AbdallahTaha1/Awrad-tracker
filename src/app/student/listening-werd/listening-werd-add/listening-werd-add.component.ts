@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CreateListeningWerdDto } from '../../../core/models/listeningWerd/create-listening-werd-dto';
+import { CreateListeningWerdDto } from '../../../core/models/listeningWerdDtos/create-listening-werd-dto';
 import { ListeningWerdService } from '../../../core/services/listening-werd.service';
 import { HeaderComponent } from '../../../layout/header/header.component';
 

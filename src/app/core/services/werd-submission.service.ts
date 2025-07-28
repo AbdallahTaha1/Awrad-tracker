@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { WerdSubmissionDto } from '../models/werd-submission.dto';
+import { WerdSubmissionDto } from '../models/werdSubmissionsDto/werd-submission.dto';
 import { Observable } from 'rxjs';
 
 @Injectable({

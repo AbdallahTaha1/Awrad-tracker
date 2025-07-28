@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WerdSubmissionDto } from '../../core/models/werd-submission.dto';
+import { WerdSubmissionDto } from '../../core/models/werdSubmissionsDto/werd-submission.dto';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { WerdSubmissionService } from '../../core/services/werd-submission.service';

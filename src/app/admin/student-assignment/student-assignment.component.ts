@@ -1,21 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { GroupDto } from '../../core/models/groupDtos/Group.Dto';
-import { StudentDto } from '../../core/models/Student/Student.dto';
+import { StudentDto } from '../../core/models/studentDtos/Student.dto';
 import { GroupService } from '../../core/services/group.service';
 import { StudentService } from '../../core/services/student.service';
 import { RouterModule } from '@angular/router';
 import { AdminHeaderComponent } from '../../layout/admin-header/admin-header.component';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-assign-student',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -29,16 +23,11 @@ export class AssignStudentComponent implements OnInit {
   form!: FormGroup;
   loading = false;
 
-  students: (StudentDto & {
-    groupId?: number | null;
-    groupName?: string | null;
-    selectedGroupId?: number | null;
-  })[] = [];
+  students: (StudentDto & { selectedGroupId?: number | null })[] = [];
   groups: GroupDto[] = [];
   message: string | null = null;
 
   constructor(
-    private fb: FormBuilder,
     private studentService: StudentService,
     private groupService: GroupService
   ) {}
@@ -56,11 +45,11 @@ export class AssignStudentComponent implements OnInit {
   }
 
   loadStudents() {
-    this.studentService.getAllWithGroups().subscribe({
+    this.studentService.getAllWithGroup().subscribe({
       next: (res) => {
         this.students = res.map((student) => ({
           ...student,
-          selectedGroupId: student.groupId || null,
+          selectedGroupId: student.groupId || null, // to track if the selected group changed or not
         }));
       },
       error: (err) => console.error('❌ Error loading students:', err),

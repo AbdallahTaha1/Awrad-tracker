@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StudentDto } from '../models/Student/Student.dto';
+import { StudentDto } from '../models/studentDtos/Student.dto';
 import { AssignTeacherGroupDto } from '../models/assign-teacher-group.dto';
 
 @Injectable({
@@ -17,8 +17,8 @@ export class StudentService {
     return this.http.get<StudentDto[]>(this.baseUrl);
   }
 
-  getAllWithGroups(): Observable<StudentDto[]> {
-    return this.http.get<StudentDto[]>(`${this.baseUrl}/with-groups`);
+  getAllWithGroup(): Observable<StudentDto[]> {
+    return this.http.get<StudentDto[]>(`${this.baseUrl}/with-group`);
   }
 
   getWeeklyReport(): Observable<any> {

@@ -4,5 +4,4 @@ export interface WerdDto {
   type: string;
   maxScore: number;
   isActive: boolean;
-  order: number;
 }

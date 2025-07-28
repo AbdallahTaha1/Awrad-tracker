@@ -9,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ParentsWerdService } from '../../../core/services/parents-werd.service';
-import { CreateParentsWerd } from '../../../core/models/create-parents-werd';
+import { CreateParentsWerd } from '../../../core/models/parentsWerdDtos/create-parents-werd';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../../layout/header/header.component';
 

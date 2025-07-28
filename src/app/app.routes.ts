@@ -49,8 +49,10 @@ export const routes: Routes = [
 
       { path: 'parentsWerd', component: ParentsWerdListComponent },
       { path: 'parentsWerd/add', component: ParentsWerdFormComponent },
-      { path: 'tartelWerd', component: TartelWerdListComponent },
-      { path: 'tartelWerd/add', component: TartelWerdFormComponent },
+
+      { path: 'tartel', component: TartelWerdListComponent },
+      { path: 'tartel/add', component: TartelWerdFormComponent },
+      { path: 'tartel/edit/:id', component: TartelWerdFormComponent },
     ],
   },
 

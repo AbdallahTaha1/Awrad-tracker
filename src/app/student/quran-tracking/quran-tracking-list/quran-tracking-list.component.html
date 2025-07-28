@@ -8,13 +8,13 @@
 
   <!-- أزرار التنقل -->
   <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
-    <button class="btn btn-outline-primary" (click)="previousWeek()">
+    <button class="btn btn-outline-primary" (click)="prevWeek()">
       ⬅️ الأسبوع السابق
     </button>
 
     <button
       class="btn btn-outline-secondary"
-      (click)="backToCurrentWeek()"
+      (click)="goToCurrentWeek()"
       [disabled]="isCurrentWeek"
     >
       🔄
@@ -52,7 +52,7 @@
       <div class="card h-100 shadow-sm border-0">
         <div class="card-body">
           <h5 class="card-title fw-bold text-primary mb-2">
-            {{ formatTrackingDate(t.date) }}
+            {{ t.date | date : "fullDate" : "" : "ar-EG" }}
           </h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ t.score }} درجة</h6>
 
@@ -72,13 +72,10 @@
         <div
           class="card-footer bg-white border-top-0 d-flex justify-content-between"
         >
-          <button class="btn btn-sm btn-outline-warning" (click)="onEdit(t.id)">
+          <button class="btn btn-sm btn-outline-warning" (click)="edit(t.id)">
             ✏️ تعديل
           </button>
-          <button
-            class="btn btn-sm btn-outline-danger"
-            (click)="onDelete(t.id)"
-          >
+          <button class="btn btn-sm btn-outline-danger" (click)="delete(t.id)">
             🗑️ حذف
           </button>
         </div>

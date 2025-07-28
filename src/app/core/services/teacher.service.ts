@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TeacherDto } from '../models/teacher/teacher.dto';
-import { teacherWithGroups } from '../models/teacher/teacherWithGroups';
+import { TeacherDto } from '../models/teacherDtos/teacher.dto';
+import { teacherWithGroups } from '../models/teacherDtos/teacherWithGroups';
 import { AssignTeacherGroupDto } from '../models/assign-teacher-group.dto';
 
 export interface TeacherGroupView {

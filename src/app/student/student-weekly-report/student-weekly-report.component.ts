@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { WeeklyReport } from '../../core/models/weekly-report.dto';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../layout/header/header.component';
+import { WeeklyReport } from '../../core/models/weekly-report.dto';
 
 @Component({
   selector: 'app-student-weekly-report',

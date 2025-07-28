@@ -14,7 +14,6 @@
         <th>العنوان</th>
         <th>النوع</th>
         <th>الدرجة</th>
-        <th>الترتيب</th>
         <th>نشط</th>
         <th>الخيارات</th>
       </tr>
@@ -29,7 +28,6 @@
           <span *ngSwitchCase="2">شهري</span>
         </td>
         <td>{{ werd.maxScore }}</td>
-        <td>{{ werd.order }}</td>
         <td>{{ werd.isActive ? "نعم" : "لا" }}</td>
         <td>
           <button

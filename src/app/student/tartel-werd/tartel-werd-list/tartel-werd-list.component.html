@@ -1,63 +1,96 @@
 <app-header></app-header>
 
-<div class="container mt-4 report-box bg-white p-4 shadow rounded" dir="rtl">
-  <h4 class="text-center fw-bold border-bottom pb-2 mb-4">
-    أوراد الترتيل الشهودي خلال الأسبوع
-    <br />
-    <small class="text-muted">{{ weekRangeText }}</small>
-  </h4>
+<div class="container py-5" dir="rtl">
+  <!-- العنوان -->
+  <h2 class="text-center fw-bold mb-4 text-dark border-bottom pb-2">
+    📖 أوراد الترتيل الشهودي خلال الأسبوع
+  </h2>
 
+  <!-- أزرار التنقل بين الأسابيع -->
+  <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+    <button class="btn btn-outline-primary" (click)="prevWeek()">
+      ⬅️ الأسبوع السابق
+    </button>
+
+    <button
+      class="btn btn-outline-secondary"
+      (click)="goToCurrentWeek()"
+      [disabled]="isCurrentWeek"
+    >
+      🔄 الأسبوع الحالي
+    </button>
+
+    <button
+      class="btn btn-outline-primary"
+      (click)="nextWeek()"
+      [disabled]="isCurrentWeek"
+    >
+      الأسبوع التالي ➡️
+    </button>
+  </div>
+
+  <!-- نص الأسبوع -->
+  <p class="text-center fs-5 fw-bold text-primary mb-4">
+    📅 {{ weekRangeText }}
+  </p>
+
+  <!-- زر الإضافة -->
+  <div class="text-center mb-4">
+    <button class="btn btn-success btn-lg px-4 shadow" (click)="onAdd()">
+      ➕ ورد جديد
+    </button>
+  </div>
+
+  <!-- حالة التحميل -->
   <ng-container *ngIf="loading; else loaded">
     <p class="text-center text-muted">جارٍ التحميل...</p>
   </ng-container>
 
+  <!-- المحتوى المحمّل -->
   <ng-template #loaded>
-    <div *ngIf="werds.length > 0; else noData">
-      <div
-        *ngFor="let record of werds"
-        class="border rounded mb-3 p-3 bg-light-subtle position-relative"
-      >
-        <div class="d-flex justify-content-between align-items-start">
-          <div class="flex-grow-1 pe-3">
-            <p class="mb-2">
-              <strong class="text-primary"
-                ><i class="bi bi-bookmark"></i> الآيات:</strong
-              >
+    <!-- لا توجد أوراد -->
+    <div *ngIf="werds.length === 0" class="text-center text-muted fs-5">
+      لا توجد أوراد لهذا الأسبوع.
+    </div>
+
+    <!-- عرض الأوراد كبطاقات -->
+    <div class="row g-4" *ngIf="werds.length > 0">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let record of werds">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="card-title fw-bold text-primary mb-2">
+              {{ record.date | date : "fullDate" : "" : "ar-EG" }}
+            </h5>
+
+            <p class="card-text mb-2">
+              <strong><i class="bi bi-bookmark"></i> الآيات:</strong>
               {{ record.verses }}
             </p>
-            <p class="mb-2">
-              <strong class="text-primary"
-                ><i class="bi bi-info-circle"></i> الفوائد:</strong
-              >
+
+            <p class="card-text mb-2">
+              <strong><i class="bi bi-info-circle"></i> الفوائد:</strong>
               {{ record.description }}
             </p>
           </div>
 
-          <div class="text-nowrap ms-3">
+          <div
+            class="card-footer bg-white border-top-0 d-flex justify-content-between"
+          >
             <button
-              class="btn btn-sm btn-outline-primary me-2"
-              (click)="startEdit(record.id)"
+              class="btn btn-sm btn-outline-warning"
+              (click)="edit(record.id)"
             >
-              <i class="bi bi-pencil"></i> تعديل
+              ✏️ تعديل
             </button>
             <button
               class="btn btn-sm btn-outline-danger"
-              (click)="deleteWerd(record.id)"
+              (click)="delete(record.id)"
             >
-              <i class="bi bi-trash"></i> حذف
+              🗑️ حذف
             </button>
           </div>
         </div>
-
-        <div class="text-muted mt-3 text-end small">
-          <i class="bi bi-calendar3"></i>
-          التاريخ: {{ record.date | date : "fullDate" : "" : "ar-EG" }}
-        </div>
       </div>
     </div>
-
-    <ng-template #noData>
-      <p class="text-center text-muted">لا توجد أوراد لهذا الأسبوع.</p>
-    </ng-template>
   </ng-template>
 </div>
