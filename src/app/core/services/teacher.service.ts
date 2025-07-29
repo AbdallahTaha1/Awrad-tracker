@@ -19,7 +19,7 @@ export interface TeacherGroupView {
   providedIn: 'root',
 })
 export class TeacherService {
-  private readonly baseUrl = 'https://localhost:7026/api/Teachers';
+  private readonly baseUrl = 'http://awrad.runasp.net/api/Teachers';
 
   constructor(private http: HttpClient) {}
 

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WerdSubmissionService {
-  private readonly baseUrl = 'https://localhost:7026/api/Submissions';
+  private readonly baseUrl = 'http://awrad.runasp.net/api/Submissions';
 
   constructor(private http: HttpClient) {}
 

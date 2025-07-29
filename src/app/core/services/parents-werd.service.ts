@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class ParentsWerdService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = 'https://localhost:7026/api/ParentsWerd';
+  private apiUrl = 'http://awrad.runasp.net/api/ParentsWerd';
 
   Create(createParentsWerd: CreateParentsWerd): Observable<ParentsWerd> {
     return this.http.post<ParentsWerd>(this.apiUrl, createParentsWerd);

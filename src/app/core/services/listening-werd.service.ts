@@ -8,7 +8,7 @@ import { CreateListeningWerdDto } from '../models/listeningWerdDtos/create-liste
   providedIn: 'root',
 })
 export class ListeningWerdService {
-  private apiUrl = 'https://localhost:7026/api/ListeningWerds';
+  private apiUrl = 'http://awrad.runasp.net/api/ListeningWerds';
 
   constructor(private http: HttpClient) {}
 

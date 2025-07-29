@@ -10,7 +10,7 @@ import { Login } from '../models/authDtos/login.dto';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = 'https://localhost:7026/api/Auth';
+  private readonly API_URL = 'http://awrad.runasp.net/api/Auth';
 
   constructor(private http: HttpClient) {}
 

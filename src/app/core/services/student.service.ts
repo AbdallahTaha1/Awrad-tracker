@@ -8,7 +8,7 @@ import { AssignTeacherGroupDto } from '../models/assign-teacher-group.dto';
   providedIn: 'root',
 })
 export class StudentService {
-  private readonly baseUrl = 'https://localhost:7026/api/Students';
+  private readonly baseUrl = 'http://awrad.runasp.net/api/Students';
 
   constructor(private http: HttpClient) {}
 

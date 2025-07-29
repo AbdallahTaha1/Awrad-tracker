@@ -9,7 +9,7 @@ import { CreateGroupDto } from '../models/groupDtos/create-group.dto';
   providedIn: 'root',
 })
 export class GroupService {
-  private readonly baseUrl = 'https://localhost:7026/api/groups';
+  private readonly baseUrl = 'http://awrad.runasp.net/api/groups';
 
   constructor(private http: HttpClient) {}
 
