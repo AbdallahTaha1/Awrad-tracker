@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SalahService {
-  private baseUrl = 'http://awrad.runasp.net/api/Salah';
+  private baseUrl = 'https://awrad.runasp.net/api/Salah';
 
   constructor(private http: HttpClient) {}
 

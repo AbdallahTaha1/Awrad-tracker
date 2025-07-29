@@ -5,12 +5,13 @@ import { Observable, tap } from 'rxjs';
 import { Register } from '../models/authDtos/register.dto';
 import { AuthResult } from '../models/authDtos/auth-result.dto';
 import { Login } from '../models/authDtos/login.dto';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = 'http://awrad.runasp.net/api/Auth';
+  private readonly API_URL = 'https://awrad.runasp.net/api/Auth';
 
   constructor(private http: HttpClient) {}
 
@@ -50,15 +51,10 @@ export class AuthService {
     if (!token) return '';
 
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-
-      return (
-        payload['name'] ||
-        payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] ||
-        ''
-      );
+      const payload: any = jwtDecode(token);
+      return payload['name'] || '';
     } catch (e) {
-      console.error('خطأ في فك التوكن:', e);
+      console.error('فشل في قراءة التوكن:', e);
       return '';
     }
   }

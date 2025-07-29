@@ -8,7 +8,7 @@ import { AssignTeacherGroupDto } from '../models/assign-teacher-group.dto';
   providedIn: 'root',
 })
 export class StudentService {
-  private readonly baseUrl = 'http://awrad.runasp.net/api/Students';
+  private readonly baseUrl = 'https://awrad.runasp.net/api/Students';
 
   constructor(private http: HttpClient) {}
 
@@ -21,8 +21,10 @@ export class StudentService {
     return this.http.get<StudentDto[]>(`${this.baseUrl}/with-group`);
   }
 
-  getWeeklyReport(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/weekly-report`);
+  getWeeklyReport(start: string, end: string): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/weekly-report?start=${start}&end=${end}`
+    );
   }
 
   assignToGroup(studentId: string, groupId: number) {

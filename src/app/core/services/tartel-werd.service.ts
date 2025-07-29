@@ -8,7 +8,7 @@ import { CreateTartelWerd } from '../models/tartelWerdDtos/create-tartel-werd';
   providedIn: 'root',
 })
 export class TartelWerdService {
-  private apiUrl = 'http://awrad.runasp.net/api/TartelWerd';
+  private apiUrl = 'https://awrad.runasp.net/api/TartelWerd';
 
   constructor(private http: HttpClient) {}
 

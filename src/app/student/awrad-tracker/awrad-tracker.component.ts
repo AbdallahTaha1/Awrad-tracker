@@ -122,4 +122,12 @@ export class AwradTrackerComponent implements OnInit {
     y.setDate(y.getDate() - 1);
     return y.toISOString().split('T')[0];
   }
+
+  hasWerds(date: string): boolean {
+    return (
+      this.groupedWerds &&
+      this.groupedWerds[date] &&
+      this.groupedWerds[date].length > 0
+    );
+  }
 }

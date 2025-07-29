@@ -8,7 +8,7 @@ import { CreateQuranTrackingDto } from '../models/quranTrackingDtos/create-quran
   providedIn: 'root',
 })
 export class QuranTrackingService {
-  private apiUrl = 'http://awrad.runasp.net/api/QuranTrackings';
+  private apiUrl = 'https://awrad.runasp.net/api/QuranTrackings';
 
   constructor(private http: HttpClient) {}
 

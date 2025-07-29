@@ -9,7 +9,7 @@ import { UpdateWerdDto } from '../models/werdDtos/update-werd.dto';
   providedIn: 'root',
 })
 export class WerdService {
-  private readonly baseUrl = 'http://awrad.runasp.net/api/werd';
+  private readonly baseUrl = 'https://awrad.runasp.net/api/werd';
 
   constructor(private http: HttpClient) {}
 

@@ -51,9 +51,7 @@
                 &nbsp;اليوم - {{ getDayName(todayString) }} - {{ todayString }}
               </h5>
 
-              <ng-container
-                *ngIf="groupedWerds[todayString].length > 0; else noToday"
-              >
+              <ng-container *ngIf="hasWerds(todayString); else noToday">
                 <ul class="list-group list-group-flush p-0">
                   <ng-container *ngFor="let werd of groupedWerds[todayString]">
                     <li
@@ -141,12 +139,7 @@
                 {{ yesterdayString }}
               </h5>
 
-              <ng-container
-                *ngIf="
-                  groupedWerds[yesterdayString].length > 0;
-                  else noYesterday
-                "
-              >
+              <ng-container *ngIf="hasWerds(yesterdayString); else noYesterday">
                 <ul class="list-group list-group-flush p-0">
                   <ng-container
                     *ngFor="let werd of groupedWerds[yesterdayString]"

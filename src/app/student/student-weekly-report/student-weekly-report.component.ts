@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { WeeklyReport } from '../../core/models/weekly-report.dto';
+import { StudentService } from '../../core/services/student.service';
 
 @Component({
   selector: 'app-student-weekly-report',
@@ -18,7 +19,11 @@ export class StudentWeeklyReportComponent implements OnInit {
   studentId: number | null = null;
   canGoForward = false;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private studentService: StudentService,
+    private http: HttpClient,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.queryParamMap.get('studentId');
@@ -35,12 +40,7 @@ export class StudentWeeklyReportComponent implements OnInit {
     const startParam = start.toISOString().split('T')[0];
     const endParam = end.toISOString().split('T')[0];
 
-    const baseUrl = 'https://localhost:7026/api/students/weekly-report';
-    const url = this.studentId
-      ? `${baseUrl}?start=${startParam}&end=${endParam}&studentId=${this.studentId}`
-      : `${baseUrl}?start=${startParam}&end=${endParam}`;
-
-    this.http.get<WeeklyReport>(url).subscribe({
+    this.studentService.getWeeklyReport(startParam, endParam).subscribe({
       next: (data) => {
         this.report = data;
         this.checkCanGoForward();
